@@ -9,16 +9,15 @@ build-job:
         when: always
         paths:
             - build/libs/*.jar
+        reports:
+            junit:
+                - build/test-results/test/TEST-*.xml
 
 test-job:
     stage: test
     script:
         - ./gradlew test
-    artifacts:
-        when: always
-        reports:
-            junit:
-                - build/test-results/test/TEST-*.xml
+        
 
 deploy-job:
     stage: deploy
