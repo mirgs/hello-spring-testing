@@ -2,13 +2,13 @@
 pipeline {
     agent any
     tools {
-        jdk 'openjdk:11-jdk'
+        jdk 'OpenJDK-15.0.2'
     }
 
     stages {
         stage('Start') {
             steps {
-                git url: 'hhttp://10.250.10.2:8929/root/hello-spring-testing.git', branch: 'master'
+                git url: 'https://github.com/mirgs/hello-spring-testing.git', branch: 'main'
             }
         }
         stage('Build') {
