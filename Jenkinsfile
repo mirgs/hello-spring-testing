@@ -27,6 +27,7 @@ pipeline {
             steps {
                 withGradle {
                     sh './gradlew test'
+                    sh './gradlew test jacocoTestReport'
                 }
             }
             post {
@@ -37,9 +38,12 @@ pipeline {
         }
         stage('Build-jacoco') {
             steps {
-                sh './jenkins_build.sh'
-                junit '*/build/test-results/*.xml'
-                step( [ $class: 'JacocoPublisher' ] )
+                step([$class: 'JacocoPublisher', 
+                        execPattern: 'build/jacoco/*.exec',
+                        classPattern: 'build/classes',
+                        sourcePattern: 'src/main/java',
+                        exclusionPattern: 'src/test*'
+                ])
             }
         }
         
