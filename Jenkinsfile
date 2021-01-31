@@ -38,12 +38,12 @@ pipeline {
         }
         stage('Build-jacoco') {
             steps {
-                step([$class: 'JacocoPublisher', 
-                        execPattern: 'build/jacoco/*.exec',
-                        classPattern: 'build/classes',
-                        sourcePattern: 'src/main/java',
-                        exclusionPattern: 'src/test*'
-                ])
+                jacocoCodeCoverage { 
+                    execPattern('build/jacoco/*.exec')
+                    classPattern('build/classes')
+                    sourcePattern('src/main/java')
+                    exclusionPattern('src/test*)
+                }
             }
         }
         
