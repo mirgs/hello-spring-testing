@@ -35,6 +35,13 @@ pipeline {
                 }
             }
         }
+        stage('Build-jacoco') {
+            steps {
+                sh './jenkins_build.sh'
+                junit '*/build/test-results/*.xml'
+                step( [ $class: 'JacocoPublisher' ] )
+            }
+        }
         
     }
 }
