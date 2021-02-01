@@ -1,13 +1,13 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.2.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'org.springframework.boot' version '2.4.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'jacoco'
+	id 'info.solidsoft.pitest' version '1.5.1'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -15,26 +15,14 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'junit:junit:4.12'
-	implementation 'org.testng:testng:7.1.0'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
 	useJUnitPlatform()
 }
 
-test {
-	finalizedBy jacocoTestReport // report is always generated after tests run
-}
 
-jacocoTestReport {
-	dependsOn test // tests are required to run before generating the report
-}
-
-jacoco {
-	toolVersion = "0.8.6"
-	reportsDir = file("$buildDir/customJacocoReportDir")
+pitest{
+	junit5PluginVersion = '0.12'    
 }
