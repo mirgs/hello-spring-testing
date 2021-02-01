@@ -6,7 +6,34 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+         stage('Build') {
+            steps {
+                withGradle {
+                    sh './gradlew assemble'
+                }
+            }
+            post {
+                success {
+                    archiveArtifacts 'build/libs/*.jar'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                withGradle {
+                    sh './gradlew test'
+                    sh './gradlew test jacocoTestReport'
+                }
+            }
+            post {
+                always {
+                    junit 'build/test-results/test/TEST-*.xml'
+                }
+            }
+        }
+        
+        stage('pitest') {
             steps {
                 withGradle {
                     sh './gradlew clean pitest'
