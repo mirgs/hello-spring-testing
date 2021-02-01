@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 withGradle {
-                    sh './gradlew pitest'
+                    sh './gradlew clean pitest'
                 }
                 step([$class: 'PitPublisher', 
                      mutationStatsFile: 'build/reports/pitest/**/mutations.xml', 
