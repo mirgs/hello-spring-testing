@@ -24,5 +24,6 @@ test {
 
 
 pitest{
+	outputFormats = ['XML', 'HTML']
 	junit5PluginVersion = '0.12'    
 }
