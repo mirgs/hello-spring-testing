@@ -11,11 +11,11 @@ pipeline {
                 withGradle {
                     sh './gradlew pitest'
                 }
-            }
-            post {
-                success {
-                    bat 'mvn --batch-mode org.pitest:pitest-maven:mutationCoverage'
-                }
+                step([$class: 'PitPublisher', 
+                     mutationStatsFile: 'build/reports/pitest/mutations.xml', 
+                     minimumKillRatio: 50.00, 
+                     killRatioMustImprove: false
+                ])
             }
         }        
         
