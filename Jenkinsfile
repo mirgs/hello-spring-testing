@@ -12,7 +12,7 @@ pipeline {
                     sh './gradlew pitest'
                 }
                 step([$class: 'PitPublisher', 
-                     mutationStatsFile: 'build/reports/pitest/*/mutations.xml', 
+                     mutationStatsFile: 'build/reports/pitest/**/mutations.xml', 
                      minimumKillRatio: 50.00, 
                      killRatioMustImprove: false
                 ])
