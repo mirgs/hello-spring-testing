@@ -57,10 +57,10 @@ pipeline {
             post {
                 always {
                     junit 'build/test-results/test/TEST-*.xml'
-                    //recordIssues(
-                    //    enabledForFailure: true, aggregatingResults: true, 
-                    //    tools: [java(), checkStyle(pattern: 'build/reports/checkstyle/*.xml', reportEncoding: 'UTF-8')]
-                    //)
+                    recordIssues(
+                        enabledForFailure: true, aggregatingResults: true, 
+                        tools: [java(), checkStyle(pattern: 'build/reports/checkstyle/*.xml', reportEncoding: 'UTF-8')]
+                    )
                     publishHTML (target: [
                         reportDir: 'build/reports/pmd/',
                         reportFiles: '*.xml',
