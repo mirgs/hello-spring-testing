@@ -22,20 +22,12 @@ pipeline {
         stage('Test') {
             steps {
                 withGradle {
-                    //sh './gradlew test'
-                    //sh './gradlew pmdTest'
                     sh './gradlew clean check'
                 }
             }
             post {
                 always {
-                    recordIssues enabledForFailure: true, tool: pmdParser(pattern: 'build/reports/pmd/*.xml')
-
-                    //publishHTML (target: [
-                    //    reportDir: 'build/reports/pmd/',
-                    //    reportFiles: '*.html',
-                    //    reportName: "Reporte PMD"
-                    //])
+                    recordIssues enabledForFailure: true, tool: spotBugs(pattern: 'build/reports/pmd/*.xml')
 
                 }
             }
