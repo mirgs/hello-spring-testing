@@ -10,18 +10,16 @@ pipeline {
             steps {
                 configFileProvider([configFile(fileId: 'hello-spring-testing-gradle.properties', targetLocation: 'gradle.properties')]) {
                     sh './gradlew clean sonarqube'
-                    /*withSonarQubeEnv() {
-                        sh './gradlew clean sonarqube'
-                    }*/
                 }
             }
+        }
 
-            post {
-                always {
-                    recordIssues enabledForFailure: true, tool: sonarQube(pattern: 'build/sonar/*.xml')
-
-                }
+        stage('SonarQube analysis') {
+            withGradle {
+                sh './gradlew check'
             }
+            withSonarQubeEnv(credentialsId: 'd79d7732-a255-4cad-8598-f577ea60755a', installationName: 'local') {
+                sh './gradlew sonarqube'
         }
         
     }
