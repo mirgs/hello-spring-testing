@@ -29,7 +29,7 @@ pipeline {
             }
             post {
                 always {
-                    recordIssues enabledForFailure: true, tools: pmdParser(pattern: 'build/reports/pmd/*.xml')
+                    recordIssues enabledForFailure: true, tool: pmdParser(pattern: 'build/reports/pmd/*.xml')
 
                     //publishHTML (target: [
                     //    reportDir: 'build/reports/pmd/',
