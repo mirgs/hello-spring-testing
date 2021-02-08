@@ -57,7 +57,7 @@ pipeline {
             post {
                 always {
                     //junit 'build/test-results/test/TEST-*.xml'
-                    recordIssues( enabledForFailure: true, tools: pmdParse(pattern: 'build/reports/pmd/*.xml')
+                    recordIssues enabledForFailure: true, tools: pmdParse(pattern: 'build/reports/pmd/*.xml')
                     publishHTML (target: [
                         reportDir: 'build/reports/pmd/',
                         reportFiles: '*.xml',
