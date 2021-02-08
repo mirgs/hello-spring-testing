@@ -5,6 +5,7 @@ plugins {
 	id 'jacoco'
 	id 'info.solidsoft.pitest' version '1.5.1'
 	id 'pmd'
+	id 'checkstyle'
 }
 
 group = 'com.example'
@@ -52,3 +53,8 @@ pmd {
     ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml"]
 
 }
+checkstyle {
+        ignoreFailures = true
+}
+
+
