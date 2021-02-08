@@ -19,7 +19,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        /*stage('Test') {
             steps {
                 withGradle {
                     sh './gradlew test'
@@ -31,20 +31,44 @@ pipeline {
                     junit 'build/test-results/test/TEST-*.xml'
                 }
             }
-        }
+        }*/
         
-        stage('pitest') {
+        //stage('pitest') {
+        //    steps {
+        //        withGradle {
+        //            sh './gradlew clean pitest'
+        //        }
+        //        step([$class: 'PitPublisher', 
+        //             mutationStatsFile: 'build/reports/pitest/**/mutations.xml', 
+        //             minimumKillRatio: 50.00, 
+        //             killRatioMustImprove: false
+        //        ])
+        //   }
+        //} 
+
+        stage('Test') {
             steps {
                 withGradle {
-                    sh './gradlew clean pitest'
+                    sh './gradlew test'
+                    sh './gradlew pmdTest'
                 }
-                step([$class: 'PitPublisher', 
-                     mutationStatsFile: 'build/reports/pitest/**/mutations.xml', 
-                     minimumKillRatio: 50.00, 
-                     killRatioMustImprove: false
-                ])
             }
-        }        
+            post {
+                always {
+                    junit 'build/test-results/test/TEST-*.xml'
+                    //recordIssues(
+                    //    enabledForFailure: true, aggregatingResults: true, 
+                    //    tools: [java(), checkStyle(pattern: 'build/reports/checkstyle/*.xml', reportEncoding: 'UTF-8')]
+                    //)
+                    publishHTML (target: [
+                        reportDir: 'build/reports/pmd/',
+                        reportFiles: '*.xml',
+                        reportName: "Reporte PMD"
+                    ])
+
+                }
+            }
+        }      
         
     }
 }
