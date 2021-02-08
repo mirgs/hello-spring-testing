@@ -6,6 +6,13 @@ pipeline {
     }
 
     stages {
+        stage('Add Config files') {
+            steps {
+                configFileProvider([configFile(fileId: 'hello-spring-testing-gradle.properties', targetLocation: 'gradle.properties')]) {
+                    sh './gradlew iT'
+                }
+            }
+        }
          stage('Build') {
             steps {
                 withGradle {
