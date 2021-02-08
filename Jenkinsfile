@@ -49,8 +49,9 @@ pipeline {
         stage('Test') {
             steps {
                 withGradle {
-                    sh './gradlew test'
-                    sh './gradlew pmdTest'
+                    //sh './gradlew test'
+                    //sh './gradlew pmdTest'
+                    sh './gradlew check'
                 }
             }
             post {
