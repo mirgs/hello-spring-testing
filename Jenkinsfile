@@ -12,12 +12,12 @@ pipeline {
                     sh './gradlew clean sonarqube'
                 }
             }
-            //post {
-            //    always {
-            //        recordIssues enabledForFailure: true, tool: sonarQube(pattern: 'build/sonar/*.xml')
+            post {
+                always {
+                    recordIssues enabledForFailure: true, tool: sonarQube(pattern: 'build/sonar/*.txt')
 
-            //    }
-            //}
+                }
+            }
         }
         
     }
