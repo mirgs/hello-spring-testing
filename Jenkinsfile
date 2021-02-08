@@ -22,12 +22,12 @@ pipeline {
         stage('Test') {
             steps {
                 withGradle {
-                    sh './gradlew clean check'
+                    sh './gradlew clean sonarqube'
                 }
             }
             post {
                 always {
-                    recordIssues enabledForFailure: true, tool: spotBugs(pattern: 'build/reports/spotbugs/*.xml')
+                    recordIssues enabledForFailure: true, tool: sonarQube(pattern: 'build/sonar/*.xml')
 
                 }
             }
