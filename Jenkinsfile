@@ -15,11 +15,13 @@ pipeline {
         }*/
 
         stage('SonarQube analysis') {
-            withGradle {
-                sh './gradlew check'
-            }
-            withSonarQubeEnv(credentialsId: 'd79d7732-a255-4cad-8598-f577ea60755a', installationName: 'local') {
-                sh './gradlew sonarqube'
+            steps {
+                withGradle {
+                    sh './gradlew check'
+                }
+                withSonarQubeEnv(credentialsId: 'd79d7732-a255-4cad-8598-f577ea60755a', installationName: 'local') {
+                    sh './gradlew sonarqube'
+                }
             }
         }
         
