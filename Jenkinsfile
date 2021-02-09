@@ -31,9 +31,13 @@ pipeline {
                     sh './gradlew dependencyCheckUpdate'
                     sh './gradlew dependencyCheckAnalyze'
                 }
-                // Run OWASP Dependency Check
-                dependencyCheck additionalArguments: '-f "HTML, XML,CSV" -s .'
-                dependencyCheckPublisher pattern: 'dependency-check-report.html'
+                dependencyCheck additionalArguments: ''' 
+                    -o "./" 
+                    -s "./"
+                    -f "ALL" 
+                    --prettyPrint''', odcInstallation: 'OWASP-DC'
+
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
         
