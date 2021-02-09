@@ -24,6 +24,18 @@ pipeline {
                 }
             }
         }
+
+        stage('Dependency Check') {
+            steps {
+                withGradle {
+                    sh './gradlew dependencyCheckUpdate'
+                    sh './gradlew dependencyCheckAnalyze'
+                }
+                // Run OWASP Dependency Check
+                dependencyCheck additionalArguments: '-f "HTML, XML,CSV" -s .'
+                dependencyCheckPublisher pattern: 'dependency-check-report.html'
+            }
+        }
         
     }
 }
