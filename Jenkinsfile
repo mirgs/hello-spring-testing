@@ -40,6 +40,14 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
+
+        stage('Artifact') {
+            steps {
+                withCredentials([string(credentialsId: 'gitLabPrivateToken', variable: 'TOKEN')]) {
+                    sh './gradlew publish'
+                }
+            }
+        }
         
     }
 }
