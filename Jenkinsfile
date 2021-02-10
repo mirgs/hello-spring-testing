@@ -50,10 +50,19 @@ pipeline {
             }
         }*/
 
-        stage('Archiva') {
+        /*stage('Archiva') {
             steps {
                 archiveArtifacts 'build/libs/*.jar'
                 withCredentials([usernamePassword(credentialsId: '7e9fde4f-7af2-4ce8-bb7f-937a2c9fdb08', usernameVariable: 'NAME', passwordVariable: 'PASS')]) {
+                    sh './gradlew publish'
+                }
+            }
+        }*/
+
+        stage('Sonatype') {
+            steps {
+                archiveArtifacts 'build/libs/*.jar'
+                withCredentials([usernamePassword(credentialsId: '033d023b-05f4-464c-b8a7-9d6618f362d9', usernameVariable: 'NAME', passwordVariable: 'PASS')]) {
                     sh './gradlew publish'
                 }
             }
