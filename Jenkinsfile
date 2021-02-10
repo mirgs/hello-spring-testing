@@ -41,10 +41,19 @@ pipeline {
             }
         }*/
 
-        stage('Artifact') {
+        /*stage('Artifact') {
             steps {
                 archiveArtifacts 'build/libs/*.jar'
                 withCredentials([string(credentialsId: 'gitLabPrivateToken', variable: 'TOKEN')]) {
+                    sh './gradlew publish'
+                }
+            }
+        }*/
+
+        stage('Archiva') {
+            steps {
+                archiveArtifacts 'build/libs/*.jar'
+                withCredentials([string(credentialsId: '7e9fde4f-7af2-4ce8-bb7f-937a2c9fdb08', aliasVariable : 'NAME', passwordVariable : 'PASS')]) {
                     sh './gradlew publish'
                 }
             }
