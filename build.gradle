@@ -44,7 +44,7 @@ publishing {
 			//version = System.getenv('VERSION')
 			// groupId = 'com.sinensia'
 			//artifactIde = 'helloSpringTesting'
-			version = '1.0' + { System.getenv('BUILD_NUMBER') ?: '0' ) + '-SNAPSHOT'
+			version = '1.0.' + ( System.getenv('BUILD_NUMBER') ?: '0' ) + '-SNAPSHOT'
                 }
         }
         repositories {
