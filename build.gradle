@@ -44,20 +44,15 @@ publishing {
 			//version = System.getenv('VERSION')
 			// groupId = 'com.sinensia'
 			//artifactIde = 'helloSpringTesting'
-			version = '1.0.' + ( System.getenv('BUILD_NUMBER') ?: '0' ) + '-SNAPSHOT'
+			//version = '1.0.' + ( System.getenv('BUILD_NUMBER') ?: '0' ) + '-SNAPSHOT'
                 }
         }
         repositories {
             maven {
-                url "http://10.250.10.2:8929/api/v4/projects/37/packages/maven"
-                name "GitLab"
-                credentials(HttpHeaderCredentials) {
-                    name = 'Private-Token'
-                    //value = gitLabPrivateToken
-                    value = System.getenv('TOKEN')
-                }
-                authentication {
-                    header(HttpHeaderAuthentication)
+                url "http://localhost:9082/repository/snapshots/"
+                credentials {
+                    username 'admin'
+		    password 'sinensia1'
                 }
             }
         }
