@@ -41,9 +41,10 @@ publishing {
                 bootJava(MavenPublication) {
                         artifact bootJar
 			//version = '0.0.2-SNAPSHOT'
-			version = System.getenv('VERSION')
+			//version = System.getenv('VERSION')
 			// groupId = 'com.sinensia'
 			//artifactIde = 'helloSpringTesting'
+			version = '1.0' + { System.getenv('BUILD_NUMBER') ?: '0' ) + '-SNAPSHOT'
                 }
         }
         repositories {
