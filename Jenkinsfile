@@ -5,11 +5,6 @@ pipeline {
         jdk 'OpenJDK-15.0.2'
     }
 
-    environment {
-        //VERSION = '0.0.2-SNAPSHOT'
-        VERSION = '0.' + LocalDate.now() + '-SNAPSHOT'
-    }
-
     stages {
         /*stage('Add Config files') {
             steps {
@@ -50,7 +45,7 @@ pipeline {
             steps {
                 archiveArtifacts 'build/libs/*.jar'
                 withCredentials([string(credentialsId: 'gitLabPrivateToken', variable: 'TOKEN')]) {
-                    sh 'VERSION=${VERSION} ./gradlew publish'
+                    sh './gradlew publish'
                 }
             }
         }
