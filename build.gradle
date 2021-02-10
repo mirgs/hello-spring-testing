@@ -5,6 +5,7 @@ plugins {
 	id "com.github.spotbugs" version "4.6.0"
 	id "org.sonarqube" version "3.1.1"
 	id "org.owasp.dependencycheck" version "6.1.0"
+	id 'maven-publish'
 }
 
 group = 'com.example'
@@ -33,4 +34,25 @@ dependencyCheck {
 	autoUpdate=false
 	cveValidForHours=2
 	format='XML'
+}
+
+publishing {
+        publications {
+                bootJava(MavenPublication) {
+                        artifact bootJar
+                }
+        }
+        repositories {
+            maven {
+                url "http://10.250.10.2:8929/api/v4/projects/37/packages/maven"
+                name "GitLab"
+                credentials(HttpHeaderCredentials) {
+                    name = 'Private-Token'
+                    value = gitLabPrivateToken
+                }
+                authentication {
+                    header(HttpHeaderAuthentication)
+                }
+            }
+        }
 }
