@@ -6,7 +6,8 @@ pipeline {
     }
 
     environment {
-        VERSION = '0.0.2-SNAPSHOT'
+        //VERSION = '0.0.2-SNAPSHOT'
+        VERSION = '0.' + LocalDate.now() + '-SNAPSHOT'
     }
 
     stages {
@@ -47,6 +48,7 @@ pipeline {
 
         stage('Artifact') {
             steps {
+                archiveArtifacts 'build/libs/*.jar'
                 withCredentials([string(credentialsId: 'gitLabPrivateToken', variable: 'TOKEN')]) {
                     sh 'VERSION=${VERSION} ./gradlew publish'
                 }
