@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         //VERSION = '0.0.2-SNAPSHOT'
-        VERSION = LocalDate.now()
+        VERSION = '0.' + LocalDate.now() + '-SNAPSHOT'
     }
 
     stages {
