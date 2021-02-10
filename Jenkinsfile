@@ -53,7 +53,7 @@ pipeline {
         stage('Archiva') {
             steps {
                 archiveArtifacts 'build/libs/*.jar'
-                withCredentials([usernamePassword(credentialsId: 'e9fde4f-7af2-4ce8-bb7f-937a2c9fdb08', usernameVariable: 'NAME', passwordVariable: 'PASS')]) {
+                withCredentials([usernamePassword(credentialsId: '7e9fde4f-7af2-4ce8-bb7f-937a2c9fdb08', usernameVariable: 'NAME', passwordVariable: 'PASS')]) {
                     sh './gradlew publish'
                 }
             }
