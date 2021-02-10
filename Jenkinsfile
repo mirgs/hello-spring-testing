@@ -14,7 +14,7 @@ pipeline {
             }
         }*/
 
-        stage('SonarQube analysis') {
+        /*stage('SonarQube analysis') {
             steps {
                 withGradle {
                     sh './gradlew check'
@@ -23,9 +23,9 @@ pipeline {
                     sh './gradlew sonarqube'
                 }
             }
-        }
+        }*/
 
-        stage('Dependency Check') {
+        /*stage('Dependency Check') {
             steps {
                 withGradle {
                     sh './gradlew dependencyCheckUpdate'
@@ -39,7 +39,7 @@ pipeline {
 
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
-        }
+        }*/
 
         stage('Artifact') {
             steps {
